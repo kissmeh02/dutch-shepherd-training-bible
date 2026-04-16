@@ -209,6 +209,185 @@ body {
   min-height: 1.2em;
 }
 
+/* ── AUDIO COACH ── */
+.audio-toggle:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.audio-coach {
+  position: fixed;
+  right: 24px;
+  bottom: 84px;
+  width: 300px;
+  background: rgba(22,18,16,0.97);
+  border: 1px solid var(--gold-line);
+  border-radius: 8px;
+  padding: 14px;
+  z-index: 120;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+  transform: translateY(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.audio-coach.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.audio-coach-header {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+.audio-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.67rem;
+  color: var(--cream-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.audio-row input[type="checkbox"] {
+  accent-color: var(--gold);
+}
+.trainer-row {
+  justify-content: flex-start;
+  gap: 8px;
+}
+.trainer-row span {
+  font-size: 0.62rem;
+}
+.audio-mode-group {
+  display: inline-flex;
+  border: 1px solid var(--gold-line);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.audio-mode-btn {
+  border: none;
+  background: var(--bg);
+  color: var(--cream-muted);
+  padding: 5px 8px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, color 0.2s;
+}
+.audio-mode-btn + .audio-mode-btn {
+  border-left: 1px solid var(--gold-line);
+}
+.audio-mode-btn.active {
+  background: var(--gold-dim);
+  color: var(--gold-light);
+}
+.audio-mode-btn:focus-visible {
+  outline: none;
+  background: rgba(212,149,43,0.24);
+  color: var(--gold-light);
+}
+.audio-speed-row input[type="range"] {
+  width: 130px;
+}
+.audio-voice-info {
+  margin: 4px 0 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  color: var(--cream-muted);
+  line-height: 1.4;
+}
+.audio-actions {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 6px;
+}
+.audio-actions button {
+  flex: 1;
+  border: 1px solid var(--gold-line);
+  background: var(--bg);
+  color: var(--cream-dim);
+  border-radius: 5px;
+  padding: 7px 8px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.audio-actions button:hover,
+.audio-actions button:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  outline: none;
+}
+.audio-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--cream-muted);
+  line-height: 1.4;
+}
+.audio-hint kbd {
+  font-family: inherit;
+  font-size: inherit;
+  border: 1px solid var(--gold-line);
+  border-radius: 3px;
+  padding: 1px 4px;
+  color: var(--cream-dim);
+}
+.audio-play-btn {
+  margin-left: 8px;
+  border: 1px solid var(--gold-line);
+  background: var(--surface2);
+  color: var(--gold-light);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.audio-play-btn svg {
+  width: 11px;
+  height: 11px;
+}
+.audio-play-btn:hover,
+.audio-play-btn:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold);
+  outline: none;
+}
+.audio-play-btn.is-speaking {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.audio-play-btn.compact {
+  margin-left: 10px;
+}
+.audio-target-flash {
+  animation: audioFlash 1.2s ease;
+}
+@keyframes audioFlash {
+  0% { box-shadow: 0 0 0 rgba(212,149,43,0); }
+  25% { box-shadow: 0 0 0 2px rgba(212,149,43,0.55); }
+  100% { box-shadow: 0 0 0 rgba(212,149,43,0); }
+}
+
 /* ── HERO ── */
 .hero {
   padding: 72px 24px 60px;
@@ -743,6 +922,12 @@ footer {
     border-bottom: none;
   }
   .search-toggle { margin-left: auto; margin-right: 4px; }
+  .audio-coach {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    bottom: 78px;
+  }
 }
 
 @media (max-width: 640px) {

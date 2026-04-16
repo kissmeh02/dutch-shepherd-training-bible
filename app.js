@@ -193,6 +193,377 @@
     }
   }
 
+  // ── AUDIO COACH ──
+  const speechSupported = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+  const audioState = {
+    mode: 'both',
+    rate: 0.95,
+    trainerMode: false,
+    preferMale: true,
+    lastPhrase: null,
+    activeButton: null
+  };
+  const audioStorageKey = 'dsd-audio-coach-settings-v1';
+  const synth = speechSupported ? window.speechSynthesis : null;
+  const voiceState = { all: [], dutch: [], english: [], dutchMale: [], englishMale: [] };
+  let updateVoiceStatusUI = null;
+
+  function loadAudioSettings() {
+    try {
+      const raw = localStorage.getItem(audioStorageKey);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (parsed.mode === 'dutch' || parsed.mode === 'english' || parsed.mode === 'both') {
+        audioState.mode = parsed.mode;
+      } else if (typeof parsed.includeEnglish === 'boolean') {
+        // Backward compatibility with old boolean setting.
+        audioState.mode = parsed.includeEnglish ? 'both' : 'dutch';
+      }
+      if (typeof parsed.trainerMode === 'boolean') audioState.trainerMode = parsed.trainerMode;
+      if (typeof parsed.preferMale === 'boolean') audioState.preferMale = parsed.preferMale;
+      if (typeof parsed.rate === 'number' && parsed.rate >= 0.7 && parsed.rate <= 1.2) audioState.rate = parsed.rate;
+    } catch (_err) {
+      // Ignore malformed settings and use defaults.
+    }
+  }
+
+  function saveAudioSettings() {
+    try {
+      localStorage.setItem(audioStorageKey, JSON.stringify({
+        mode: audioState.mode,
+        rate: audioState.rate,
+        trainerMode: audioState.trainerMode,
+        preferMale: audioState.preferMale
+      }));
+    } catch (_err) {
+      // Ignore storage failures (private mode, quota limits).
+    }
+  }
+
+  function refreshVoices() {
+    if (!speechSupported) return;
+    voiceState.all = synth.getVoices();
+    voiceState.dutch = voiceState.all.filter(v => v.lang.toLowerCase().startsWith('nl'));
+    voiceState.english = voiceState.all.filter(v => v.lang.toLowerCase().startsWith('en'));
+    voiceState.dutchMale = voiceState.dutch.filter(isLikelyMaleVoice);
+    voiceState.englishMale = voiceState.english.filter(isLikelyMaleVoice);
+    if (typeof updateVoiceStatusUI === 'function') updateVoiceStatusUI();
+  }
+
+  function isLikelyMaleVoice(voice) {
+    const id = `${voice.name} ${voice.lang}`.toLowerCase();
+    return /(male|man|david|george|thomas|maarten|xander|bart|willem|hans|bas|guy|daniel|paul)/.test(id);
+  }
+
+  function pickVoice(language) {
+    if (!speechSupported) return null;
+    if (language === 'nl-NL') {
+      if (audioState.preferMale && voiceState.dutchMale.length) return voiceState.dutchMale[0];
+      return voiceState.dutch[0] || voiceState.english[0] || voiceState.all[0] || null;
+    }
+    if (audioState.preferMale && voiceState.englishMale.length) return voiceState.englishMale[0];
+    return voiceState.english[0] || voiceState.all[0] || null;
+  }
+
+  function createUtterance(text, language) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = language;
+    utterance.rate = audioState.rate;
+    const voice = pickVoice(language);
+    if (voice) utterance.voice = voice;
+    return utterance;
+  }
+
+  function voiceLabel(voice, fallback) {
+    if (!voice) return fallback;
+    return `${voice.name} (${voice.lang})`;
+  }
+
+  function setActiveAudioButton(button) {
+    if (audioState.activeButton) {
+      audioState.activeButton.classList.remove('is-speaking');
+    }
+    audioState.activeButton = button || null;
+    if (audioState.activeButton) {
+      audioState.activeButton.classList.add('is-speaking');
+    }
+  }
+
+  function clearActiveAudioButton() {
+    setActiveAudioButton(null);
+  }
+
+  function speakPhrase(dutchText, englishText, originButton) {
+    if (!speechSupported || !dutchText) return;
+
+    const trimmedDutch = dutchText.trim();
+    const trimmedEnglish = (englishText || '').trim();
+    if (!trimmedDutch) return;
+
+    synth.cancel();
+    setActiveAudioButton(originButton || null);
+
+    audioState.lastPhrase = {
+      dutch: trimmedDutch,
+      english: trimmedEnglish
+    };
+
+    const dutchUtterance = createUtterance(trimmedDutch, 'nl-NL');
+    const hasEnglish = Boolean(trimmedEnglish);
+    const mode = audioState.mode;
+    const speakDutch = mode === 'dutch' || mode === 'both' || (mode === 'english' && !hasEnglish);
+    const speakEnglish = (mode === 'english' || mode === 'both') && hasEnglish;
+
+    if (!speakDutch && !speakEnglish) {
+      clearActiveAudioButton();
+      return;
+    }
+
+    dutchUtterance.onend = () => {
+      if (!speakEnglish) {
+        clearActiveAudioButton();
+        return;
+      }
+      const englishUtterance = createUtterance(trimmedEnglish, 'en-US');
+      englishUtterance.onend = clearActiveAudioButton;
+      englishUtterance.onerror = clearActiveAudioButton;
+      synth.speak(englishUtterance);
+    };
+    dutchUtterance.onerror = clearActiveAudioButton;
+
+    if (speakDutch) {
+      synth.speak(dutchUtterance);
+      return;
+    }
+
+    const englishUtterance = createUtterance(trimmedEnglish, 'en-US');
+    englishUtterance.onend = clearActiveAudioButton;
+    englishUtterance.onerror = clearActiveAudioButton;
+    synth.speak(englishUtterance);
+  }
+
+  function sanitizeDutchTerm(text) {
+    return text.replace(/\s*\(.*?\)\s*/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
+  function createAudioButton(labelText, dutchText, englishText) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'audio-play-btn';
+    btn.setAttribute('aria-label', `Play pronunciation for ${labelText}`);
+    btn.setAttribute('title', 'Play pronunciation');
+    btn.dataset.dutch = dutchText;
+    btn.dataset.english = englishText || '';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19 5a7 7 0 0 1 0 14"></path><path d="M15.5 8.5a3.5 3.5 0 0 1 0 7"></path></svg><span>Audio</span>';
+    return btn;
+  }
+
+  function injectAudioButtons() {
+    // Command tables
+    document.querySelectorAll('.cmd-table tbody tr').forEach((row) => {
+      const dutchCell = row.querySelector('.t-dutch');
+      const englishCell = row.querySelector('.t-english');
+      if (!dutchCell || dutchCell.querySelector('.audio-play-btn')) return;
+
+      const dutchText = sanitizeDutchTerm(dutchCell.textContent);
+      const englishText = englishCell ? englishCell.textContent.trim() : '';
+      if (!dutchText) return;
+
+      const btn = createAudioButton(dutchText, dutchText, englishText);
+      dutchCell.appendChild(btn);
+    });
+
+    // Marker cards
+    document.querySelectorAll('.marker-card').forEach((card) => {
+      const word = card.querySelector('.m-word');
+      const type = card.querySelector('.m-type');
+      if (!word || word.querySelector('.audio-play-btn')) return;
+
+      const dutchText = sanitizeDutchTerm(word.textContent.trim());
+      const englishText = type ? type.textContent.trim() : '';
+      if (!dutchText) return;
+
+      const btn = createAudioButton(dutchText, dutchText, englishText);
+      btn.classList.add('compact');
+      word.appendChild(btn);
+    });
+  }
+
+  function setupAudioCoach() {
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+
+    const audioToggle = document.createElement('button');
+    audioToggle.type = 'button';
+    audioToggle.className = 'search-toggle audio-toggle';
+    audioToggle.id = 'audioToggle';
+    audioToggle.setAttribute('aria-label', 'Toggle audio coach');
+    audioToggle.setAttribute('title', 'Audio coach');
+    audioToggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19 5a7 7 0 0 1 0 14"></path></svg>';
+    nav.insertBefore(audioToggle, hamburger);
+
+    const panel = document.createElement('aside');
+    panel.className = 'audio-coach';
+    panel.id = 'audioCoach';
+    panel.setAttribute('aria-label', 'Audio coach settings');
+    panel.innerHTML = [
+      '<div class="audio-coach-header">Audio Coach</div>',
+      '<div class="audio-row audio-mode-row"><span>Mode</span><div class="audio-mode-group" role="radiogroup" aria-label="Audio playback mode">',
+      '  <button type="button" class="audio-mode-btn" data-mode="dutch" role="radio">Dutch</button>',
+      '  <button type="button" class="audio-mode-btn" data-mode="english" role="radio">English</button>',
+      '  <button type="button" class="audio-mode-btn" data-mode="both" role="radio">Both</button>',
+      '</div></div>',
+      '<label class="audio-row trainer-row"><input type="checkbox" id="audioTrainerMode"> <span>Trainer mode (slow + both)</span></label>',
+      '<label class="audio-row trainer-row"><input type="checkbox" id="audioPreferMale"> <span>Prefer male voice</span></label>',
+      '<label class="audio-row audio-speed-row"><span>Speed</span> <input type="range" id="audioRate" min="0.7" max="1.2" step="0.05"></label>',
+      '<div class="audio-voice-info" id="audioVoiceInfo" aria-live="polite"></div>',
+      '<div class="audio-actions">',
+      '  <button type="button" id="audioVoiceTest">Voice test</button>',
+      '  <button type="button" id="audioRepeatLast">Repeat last</button>',
+      '  <button type="button" id="audioRandom">Random command</button>',
+      '</div>',
+      '<div class="audio-hint">Tip: press <kbd>Alt</kbd> + <kbd>A</kbd> to repeat.</div>'
+    ].join('');
+    document.body.appendChild(panel);
+
+    const modeButtons = Array.from(panel.querySelectorAll('.audio-mode-btn'));
+    const trainerToggle = panel.querySelector('#audioTrainerMode');
+    const preferMaleToggle = panel.querySelector('#audioPreferMale');
+    const rateInput = panel.querySelector('#audioRate');
+    const voiceInfo = panel.querySelector('#audioVoiceInfo');
+    const voiceTestButton = panel.querySelector('#audioVoiceTest');
+    const repeatButton = panel.querySelector('#audioRepeatLast');
+    const randomButton = panel.querySelector('#audioRandom');
+
+    function renderModeButtons() {
+      modeButtons.forEach((btn) => {
+        const isActive = btn.dataset.mode === audioState.mode;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      });
+    }
+
+    function renderVoiceInfo() {
+      const dutchVoice = pickVoice('nl-NL');
+      const englishVoice = pickVoice('en-US');
+      const maleTag = audioState.preferMale ? ' | male preferred' : '';
+      voiceInfo.textContent = `NL: ${voiceLabel(dutchVoice, 'System default')} | EN: ${voiceLabel(englishVoice, 'System default')}${maleTag}`;
+    }
+
+    function applyTrainerPreset(enabled) {
+      audioState.trainerMode = enabled;
+      if (enabled) {
+        audioState.mode = 'both';
+        audioState.rate = 0.8;
+      }
+      renderModeButtons();
+      trainerToggle.checked = audioState.trainerMode;
+      rateInput.value = String(audioState.rate);
+      saveAudioSettings();
+    }
+
+    renderModeButtons();
+    trainerToggle.checked = audioState.trainerMode;
+    preferMaleToggle.checked = audioState.preferMale;
+    rateInput.value = String(audioState.rate);
+    updateVoiceStatusUI = renderVoiceInfo;
+    renderVoiceInfo();
+
+    audioToggle.addEventListener('click', () => {
+      panel.classList.toggle('visible');
+    });
+
+    modeButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const nextMode = btn.dataset.mode;
+        if (!nextMode || nextMode === audioState.mode) return;
+        audioState.mode = nextMode;
+        audioState.trainerMode = false;
+        trainerToggle.checked = false;
+        renderModeButtons();
+        saveAudioSettings();
+      });
+    });
+
+    trainerToggle.addEventListener('change', () => {
+      applyTrainerPreset(trainerToggle.checked);
+    });
+
+    preferMaleToggle.addEventListener('change', () => {
+      audioState.preferMale = preferMaleToggle.checked;
+      saveAudioSettings();
+      renderVoiceInfo();
+    });
+
+    rateInput.addEventListener('input', () => {
+      audioState.rate = Number(rateInput.value);
+      if (audioState.trainerMode && Math.abs(audioState.rate - 0.8) > 0.001) {
+        audioState.trainerMode = false;
+        trainerToggle.checked = false;
+      }
+      saveAudioSettings();
+    });
+
+    voiceTestButton.addEventListener('click', () => {
+      speakPhrase('Goed zo', 'Good job', null);
+    });
+
+    repeatButton.addEventListener('click', () => {
+      if (!audioState.lastPhrase) return;
+      speakPhrase(audioState.lastPhrase.dutch, audioState.lastPhrase.english, null);
+    });
+
+    randomButton.addEventListener('click', () => {
+      const buttons = Array.from(document.querySelectorAll('.audio-play-btn'));
+      if (buttons.length === 0) return;
+      const randomBtn = buttons[Math.floor(Math.random() * buttons.length)];
+      randomBtn.closest('tr, .marker-card')?.classList.add('audio-target-flash');
+      setTimeout(() => {
+        randomBtn.closest('tr, .marker-card')?.classList.remove('audio-target-flash');
+      }, 1200);
+      randomBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      speakPhrase(randomBtn.dataset.dutch || '', randomBtn.dataset.english || '', randomBtn);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!panel.contains(e.target) && e.target !== audioToggle && !audioToggle.contains(e.target)) {
+        panel.classList.remove('visible');
+      }
+    });
+
+    if (!speechSupported) {
+      audioToggle.disabled = true;
+      audioToggle.title = 'Speech synthesis is not supported in this browser';
+      panel.classList.add('visible');
+      panel.innerHTML = '<div class="audio-coach-header">Audio Coach</div><div class="audio-hint">Speech synthesis is not available in this browser. Try Chrome, Edge, or Safari.</div>';
+      updateVoiceStatusUI = null;
+    }
+  }
+
+  if (speechSupported) {
+    refreshVoices();
+    if (typeof synth.onvoiceschanged !== 'undefined') {
+      synth.onvoiceschanged = refreshVoices;
+    }
+  }
+
+  loadAudioSettings();
+  injectAudioButtons();
+  setupAudioCoach();
+
+  document.addEventListener('click', (e) => {
+    const audioButton = e.target.closest('.audio-play-btn');
+    if (!audioButton) return;
+    speakPhrase(audioButton.dataset.dutch || '', audioButton.dataset.english || '', audioButton);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey && e.key.toLowerCase() === 'a' && audioState.lastPhrase) {
+      e.preventDefault();
+      speakPhrase(audioState.lastPhrase.dutch, audioState.lastPhrase.english, null);
+    }
+  });
+
   // Init
   updateProgress();
   updateScrollSpy();

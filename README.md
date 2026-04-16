@@ -7,11 +7,26 @@ A complete, interactive Dutch Shepherd training reference page with:
 - body language guide
 - handler rules and breed-specific notes
 - search, filters, mobile menu, and scroll-spy navigation
+- audio coach with Dutch / English / Both playback modes
+- trainer mode, random command practice, and repeat-last playback
 - production-ready split assets: `styles.css` and `app.js`
 
 ## Local preview
 
 Open `index.html` directly in a browser.
+
+## Audio coach quick guide
+
+- Click any `Audio` button next to a Dutch term to hear pronunciation.
+- Open Audio Coach from the speaker icon in the nav bar.
+- Modes:
+  - `Dutch` = Dutch only
+  - `English` = English only
+  - `Both` = Dutch then English
+- `Trainer mode` sets slower speed plus both languages.
+- `Prefer male voice` tries to use a male voice when available.
+- `Voice test` lets you confirm your browser voice output.
+- Shortcut: `Alt + A` repeats the last phrase.
 
 ## Publish on GitHub Pages (recommended for Notion)
 
@@ -51,4 +66,21 @@ Important: full JavaScript functionality works only when you embed the **live ho
 - Confirm command search works (`Ctrl+K`) and filters table rows.
 - Confirm section highlighting updates while scrolling.
 - Confirm hamburger nav works on small screens.
+- Confirm audio buttons appear in command tables and marker cards.
+- Confirm Audio Coach speaker icon opens panel and `Voice test` works.
+- Confirm Dutch / English / Both mode switching works.
 - Confirm the page embeds in Notion using `/embed` and the hosted URL.
+
+## Update workflow (local + GitHub)
+
+Use this when you make future edits:
+
+1. Edit files locally (`index.html`, `styles.css`, `app.js`, `README.md`).
+2. Preview locally by opening `index.html`.
+3. Commit and push:
+   - `git add .`
+   - `git commit -m "your message"`
+   - `git push`
+4. Wait for GitHub Pages deploy (usually under 1 minute).
+5. Refresh the live URL:
+   - `https://kissmeh02.github.io/dutch-shepherd-training-bible/`
