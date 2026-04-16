@@ -25,6 +25,10 @@ Open `index.html` directly in a browser.
 6. Your live URL will be:
    - `https://<your-username>.github.io/<repo-name>/`
 
+Live deployment for this project:
+- Repo: `https://github.com/kissmeh02/dutch-shepherd-training-bible`
+- Site: `https://kissmeh02.github.io/dutch-shepherd-training-bible/`
+
 ## Embed in Notion with full functionality
 
 Important: full JavaScript functionality works only when you embed the **live hosted URL** (not raw HTML text).
@@ -36,6 +40,8 @@ Important: full JavaScript functionality works only when you embed the **live ho
 ## Notes
 
 - `.nojekyll` is included so GitHub Pages serves files exactly as-is.
+- `404.html` mirrors the main page for GitHub Pages fallback behavior.
+- `social-preview.svg` is used for Open Graph and Twitter share previews.
 - If you later add custom domains, update GitHub Pages settings accordingly.
 - Some Notion mobile views may show reduced viewport space, but features still work inside the embed.
 
