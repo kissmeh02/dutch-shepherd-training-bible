@@ -200,12 +200,15 @@
     rate: 0.95,
     trainerMode: false,
     preferMale: true,
+    dutchVoiceUri: 'auto',
+    englishVoiceUri: 'auto',
     lastPhrase: null,
     activeButton: null
   };
   const audioStorageKey = 'dsd-audio-coach-settings-v1';
   const synth = speechSupported ? window.speechSynthesis : null;
   const voiceState = { all: [], dutch: [], english: [], dutchMale: [], englishMale: [] };
+  let commandDataset = { commands: [], markers: [] };
   let updateVoiceStatusUI = null;
 
   function loadAudioSettings() {
@@ -221,6 +224,8 @@
       }
       if (typeof parsed.trainerMode === 'boolean') audioState.trainerMode = parsed.trainerMode;
       if (typeof parsed.preferMale === 'boolean') audioState.preferMale = parsed.preferMale;
+      if (typeof parsed.dutchVoiceUri === 'string') audioState.dutchVoiceUri = parsed.dutchVoiceUri;
+      if (typeof parsed.englishVoiceUri === 'string') audioState.englishVoiceUri = parsed.englishVoiceUri;
       if (typeof parsed.rate === 'number' && parsed.rate >= 0.7 && parsed.rate <= 1.2) audioState.rate = parsed.rate;
     } catch (_err) {
       // Ignore malformed settings and use defaults.
@@ -233,10 +238,27 @@
         mode: audioState.mode,
         rate: audioState.rate,
         trainerMode: audioState.trainerMode,
-        preferMale: audioState.preferMale
+        preferMale: audioState.preferMale,
+        dutchVoiceUri: audioState.dutchVoiceUri,
+        englishVoiceUri: audioState.englishVoiceUri
       }));
     } catch (_err) {
       // Ignore storage failures (private mode, quota limits).
+    }
+  }
+
+  async function loadCommandDataset() {
+    try {
+      const response = await fetch('commands-data.json', { cache: 'no-store' });
+      if (!response.ok) return;
+      const payload = await response.json();
+      if (!payload || !Array.isArray(payload.commands) || !Array.isArray(payload.markers)) return;
+      commandDataset = {
+        commands: payload.commands,
+        markers: payload.markers
+      };
+    } catch (_err) {
+      // Fail silently and fallback to DOM-driven behavior.
     }
   }
 
@@ -257,10 +279,20 @@
 
   function pickVoice(language) {
     if (!speechSupported) return null;
+
+    const findByUri = (voices, uri) => {
+      if (!uri || uri === 'auto') return null;
+      return voices.find((voice) => voice.voiceURI === uri) || null;
+    };
+
     if (language === 'nl-NL') {
+      const explicitlyChosenDutch = findByUri(voiceState.dutch, audioState.dutchVoiceUri) || findByUri(voiceState.all, audioState.dutchVoiceUri);
+      if (explicitlyChosenDutch) return explicitlyChosenDutch;
       if (audioState.preferMale && voiceState.dutchMale.length) return voiceState.dutchMale[0];
       return voiceState.dutch[0] || voiceState.english[0] || voiceState.all[0] || null;
     }
+    const explicitlyChosenEnglish = findByUri(voiceState.english, audioState.englishVoiceUri) || findByUri(voiceState.all, audioState.englishVoiceUri);
+    if (explicitlyChosenEnglish) return explicitlyChosenEnglish;
     if (audioState.preferMale && voiceState.englishMale.length) return voiceState.englishMale[0];
     return voiceState.english[0] || voiceState.all[0] || null;
   }
@@ -277,6 +309,15 @@
   function voiceLabel(voice, fallback) {
     if (!voice) return fallback;
     return `${voice.name} (${voice.lang})`;
+  }
+
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   function setActiveAudioButton(button) {
@@ -346,6 +387,10 @@
     return text.replace(/\s*\(.*?\)\s*/g, ' ').replace(/\s+/g, ' ').trim();
   }
 
+  function phraseKey(dutchText, englishText) {
+    return `${(dutchText || '').toLowerCase().trim()}|${(englishText || '').toLowerCase().trim()}`;
+  }
+
   function createAudioButton(labelText, dutchText, englishText) {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -354,6 +399,7 @@
     btn.setAttribute('title', 'Play pronunciation');
     btn.dataset.dutch = dutchText;
     btn.dataset.english = englishText || '';
+    btn.dataset.key = phraseKey(dutchText, englishText || '');
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19 5a7 7 0 0 1 0 14"></path><path d="M15.5 8.5a3.5 3.5 0 0 1 0 7"></path></svg><span>Audio</span>';
     return btn;
   }
@@ -415,6 +461,8 @@
       '</div></div>',
       '<label class="audio-row trainer-row"><input type="checkbox" id="audioTrainerMode"> <span>Trainer mode (slow + both)</span></label>',
       '<label class="audio-row trainer-row"><input type="checkbox" id="audioPreferMale"> <span>Prefer male voice</span></label>',
+      '<label class="audio-row"><span>Dutch voice</span><select id="audioDutchVoice" class="audio-select"></select></label>',
+      '<label class="audio-row"><span>English voice</span><select id="audioEnglishVoice" class="audio-select"></select></label>',
       '<label class="audio-row audio-speed-row"><span>Speed</span> <input type="range" id="audioRate" min="0.7" max="1.2" step="0.05"></label>',
       '<div class="audio-voice-info" id="audioVoiceInfo" aria-live="polite"></div>',
       '<div class="audio-actions">',
@@ -429,6 +477,8 @@
     const modeButtons = Array.from(panel.querySelectorAll('.audio-mode-btn'));
     const trainerToggle = panel.querySelector('#audioTrainerMode');
     const preferMaleToggle = panel.querySelector('#audioPreferMale');
+    const dutchVoiceSelect = panel.querySelector('#audioDutchVoice');
+    const englishVoiceSelect = panel.querySelector('#audioEnglishVoice');
     const rateInput = panel.querySelector('#audioRate');
     const voiceInfo = panel.querySelector('#audioVoiceInfo');
     const voiceTestButton = panel.querySelector('#audioVoiceTest');
@@ -450,6 +500,23 @@
       voiceInfo.textContent = `NL: ${voiceLabel(dutchVoice, 'System default')} | EN: ${voiceLabel(englishVoice, 'System default')}${maleTag}`;
     }
 
+    function populateVoiceSelect(select, voices, selectedUri) {
+      const previous = selectedUri || 'auto';
+      const options = ['<option value="auto">Auto select</option>']
+        .concat(voices.map((voice) => `<option value="${escapeHtml(voice.voiceURI)}">${escapeHtml(voice.name)} (${escapeHtml(voice.lang)})</option>`));
+      select.innerHTML = options.join('');
+      if (voices.some((voice) => voice.voiceURI === previous)) {
+        select.value = previous;
+      } else {
+        select.value = 'auto';
+      }
+    }
+
+    function renderVoiceSelectors() {
+      populateVoiceSelect(dutchVoiceSelect, voiceState.dutch.length ? voiceState.dutch : voiceState.all, audioState.dutchVoiceUri);
+      populateVoiceSelect(englishVoiceSelect, voiceState.english.length ? voiceState.english : voiceState.all, audioState.englishVoiceUri);
+    }
+
     function applyTrainerPreset(enabled) {
       audioState.trainerMode = enabled;
       if (enabled) {
@@ -467,6 +534,7 @@
     preferMaleToggle.checked = audioState.preferMale;
     rateInput.value = String(audioState.rate);
     updateVoiceStatusUI = renderVoiceInfo;
+    renderVoiceSelectors();
     renderVoiceInfo();
 
     audioToggle.addEventListener('click', () => {
@@ -495,6 +563,18 @@
       renderVoiceInfo();
     });
 
+    dutchVoiceSelect.addEventListener('change', () => {
+      audioState.dutchVoiceUri = dutchVoiceSelect.value || 'auto';
+      saveAudioSettings();
+      renderVoiceInfo();
+    });
+
+    englishVoiceSelect.addEventListener('change', () => {
+      audioState.englishVoiceUri = englishVoiceSelect.value || 'auto';
+      saveAudioSettings();
+      renderVoiceInfo();
+    });
+
     rateInput.addEventListener('input', () => {
       audioState.rate = Number(rateInput.value);
       if (audioState.trainerMode && Math.abs(audioState.rate - 0.8) > 0.001) {
@@ -514,9 +594,39 @@
     });
 
     randomButton.addEventListener('click', () => {
-      const buttons = Array.from(document.querySelectorAll('.audio-play-btn'));
-      if (buttons.length === 0) return;
-      const randomBtn = buttons[Math.floor(Math.random() * buttons.length)];
+      const datasetItems = commandDataset.commands
+        .map((item) => ({
+          dutch: item.voiceDutch || item.dutch || '',
+          english: item.english || ''
+        }))
+        .concat(commandDataset.markers.map((item) => ({
+          dutch: item.voiceDutch || item.dutch || '',
+          english: item.english || ''
+        })))
+        .filter((item) => item.dutch);
+
+      const domButtons = Array.from(document.querySelectorAll('.audio-play-btn'));
+      if (datasetItems.length > 0) {
+        const pick = datasetItems[Math.floor(Math.random() * datasetItems.length)];
+        const key = phraseKey(pick.dutch, pick.english);
+        const randomBtn = (window.CSS && typeof window.CSS.escape === 'function')
+          ? document.querySelector(`.audio-play-btn[data-key="${window.CSS.escape(key)}"]`)
+          : domButtons.find((btn) => btn.dataset.key === key);
+        if (randomBtn) {
+          randomBtn.closest('tr, .marker-card')?.classList.add('audio-target-flash');
+          setTimeout(() => {
+            randomBtn.closest('tr, .marker-card')?.classList.remove('audio-target-flash');
+          }, 1200);
+          randomBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          speakPhrase(randomBtn.dataset.dutch || '', randomBtn.dataset.english || '', randomBtn);
+          return;
+        }
+        speakPhrase(pick.dutch, pick.english, null);
+        return;
+      }
+
+      if (domButtons.length === 0) return;
+      const randomBtn = domButtons[Math.floor(Math.random() * domButtons.length)];
       randomBtn.closest('tr, .marker-card')?.classList.add('audio-target-flash');
       setTimeout(() => {
         randomBtn.closest('tr, .marker-card')?.classList.remove('audio-target-flash');
@@ -538,6 +648,11 @@
       panel.innerHTML = '<div class="audio-coach-header">Audio Coach</div><div class="audio-hint">Speech synthesis is not available in this browser. Try Chrome, Edge, or Safari.</div>';
       updateVoiceStatusUI = null;
     }
+
+    updateVoiceStatusUI = () => {
+      renderVoiceSelectors();
+      renderVoiceInfo();
+    };
   }
 
   if (speechSupported) {
@@ -549,6 +664,7 @@
 
   loadAudioSettings();
   injectAudioButtons();
+  loadCommandDataset();
   setupAudioCoach();
 
   document.addEventListener('click', (e) => {

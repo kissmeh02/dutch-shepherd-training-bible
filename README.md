@@ -9,6 +9,7 @@ A complete, interactive Dutch Shepherd training reference page with:
 - search, filters, mobile menu, and scroll-spy navigation
 - audio coach with Dutch / English / Both playback modes
 - trainer mode, random command practice, and repeat-last playback
+- command dataset file: `commands-data.json` (Dutch voice text + command metadata)
 - production-ready split assets: `styles.css` and `app.js`
 
 ## Local preview
@@ -25,6 +26,7 @@ Open `index.html` directly in a browser.
   - `Both` = Dutch then English
 - `Trainer mode` sets slower speed plus both languages.
 - `Prefer male voice` tries to use a male voice when available.
+- Voice selectors let you choose exact Dutch and English voices from your browser.
 - `Voice test` lets you confirm your browser voice output.
 - Shortcut: `Alt + A` repeats the last phrase.
 
@@ -57,6 +59,7 @@ Important: full JavaScript functionality works only when you embed the **live ho
 - `.nojekyll` is included so GitHub Pages serves files exactly as-is.
 - `404.html` mirrors the main page for GitHub Pages fallback behavior.
 - `social-preview.svg` is used for Open Graph and Twitter share previews.
+- `commands-data.json` stores command/marker voice text and powers random audio picks.
 - If you later add custom domains, update GitHub Pages settings accordingly.
 - Some Notion mobile views may show reduced viewport space, but features still work inside the embed.
 
@@ -69,6 +72,7 @@ Important: full JavaScript functionality works only when you embed the **live ho
 - Confirm audio buttons appear in command tables and marker cards.
 - Confirm Audio Coach speaker icon opens panel and `Voice test` works.
 - Confirm Dutch / English / Both mode switching works.
+- Confirm Dutch/English voice selectors populate and can switch voices.
 - Confirm the page embeds in Notion using `/embed` and the hosted URL.
 
 ## Update workflow (local + GitHub)

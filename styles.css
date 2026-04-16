@@ -294,6 +294,20 @@ body {
   background: rgba(212,149,43,0.24);
   color: var(--gold-light);
 }
+.audio-select {
+  width: 150px;
+  border: 1px solid var(--gold-line);
+  background: var(--bg);
+  color: var(--cream-dim);
+  border-radius: 4px;
+  padding: 3px 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+}
+.audio-select:focus-visible {
+  outline: none;
+  border-color: var(--gold);
+}
 .audio-speed-row input[type="range"] {
   width: 130px;
 }

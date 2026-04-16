@@ -1,0 +1,679 @@
+{
+  "version": 1,
+  "description": "Dutch Shepherd command voice dataset for audio coach.",
+  "commandsCount": 69,
+  "markersCount": 6,
+  "commands": [
+    {
+      "sectionId": "puppy",
+      "sectionTitle": "Puppy Foundations",
+      "dutch": "Naam (dog's name)",
+      "voiceDutch": "Naam",
+      "english": "Name recognition",
+      "phonetic": "NAH-m",
+      "notes": "First thing to teach. Say name -> reward eye contact. Never use name as a correction."
+    },
+    {
+      "sectionId": "puppy",
+      "sectionTitle": "Puppy Foundations",
+      "dutch": "Kijk",
+      "voiceDutch": "Kijk",
+      "english": "Watch me / Look",
+      "phonetic": "KEYK",
+      "notes": "Eye contact on command. Foundation for all focus and heeling work."
+    },
+    {
+      "sectionId": "puppy",
+      "sectionTitle": "Puppy Foundations",
+      "dutch": "Zacht",
+      "voiceDutch": "Zacht",
+      "english": "Gentle / Soft mouth",
+      "phonetic": "ZAKHKT",
+      "notes": "Bite inhibition. Critical before any tug or bite sport work. Teach by weeks 10–12."
+    },
+    {
+      "sectionId": "puppy",
+      "sectionTitle": "Puppy Foundations",
+      "dutch": "Hier",
+      "voiceDutch": "Hier",
+      "english": "Come / Here",
+      "phonetic": "HEER",
+      "notes": "Safety recall. Always make coming to you the best thing that happens all day."
+    },
+    {
+      "sectionId": "puppy",
+      "sectionTitle": "Puppy Foundations",
+      "dutch": "Nee",
+      "voiceDutch": "Nee",
+      "english": "No",
+      "phonetic": "NAY",
+      "notes": "Calm and immediate. Redirect to correct behaviour after correction."
+    },
+    {
+      "sectionId": "puppy",
+      "sectionTitle": "Puppy Foundations",
+      "dutch": "Laat",
+      "voiceDutch": "Laat",
+      "english": "Leave it",
+      "phonetic": "LAHT",
+      "notes": "Impulse control from day one. Prevents food aggression and dangerous item ingestion."
+    },
+    {
+      "sectionId": "puppy",
+      "sectionTitle": "Puppy Foundations",
+      "dutch": "Wacht",
+      "voiceDutch": "Wacht",
+      "english": "Wait",
+      "phonetic": "VAKHKT",
+      "notes": "Door manners, food bowl, car doors. Different from Blijf — shorter, informal hold."
+    },
+    {
+      "sectionId": "puppy",
+      "sectionTitle": "Puppy Foundations",
+      "dutch": "Vriendelijk",
+      "voiceDutch": "Vriendelijk",
+      "english": "Friendly / Be nice",
+      "phonetic": "VREEN-deh-lik",
+      "notes": "Signals a person/dog is safe. Pairs with socialization; reduces fear responses."
+    },
+    {
+      "sectionId": "puppy",
+      "sectionTitle": "Puppy Foundations",
+      "dutch": "Laat zien",
+      "voiceDutch": "Laat zien",
+      "english": "Show me / Investigate",
+      "phonetic": "LAHT ZEEN",
+      "notes": "Permission to sniff/check new object. Builds confidence with novel stimuli."
+    },
+    {
+      "sectionId": "obedience",
+      "sectionTitle": "Core Obedience",
+      "dutch": "Zit",
+      "voiceDutch": "Zit",
+      "english": "Sit",
+      "phonetic": "ZIT",
+      "notes": "Classic foundation. Build duration before distance."
+    },
+    {
+      "sectionId": "obedience",
+      "sectionTitle": "Core Obedience",
+      "dutch": "Af",
+      "voiceDutch": "Af",
+      "english": "Down (lie down)",
+      "phonetic": "AHF",
+      "notes": "Full down — elbows to floor. Separate from \"Omlaag\" (off furniture)."
+    },
+    {
+      "sectionId": "obedience",
+      "sectionTitle": "Core Obedience",
+      "dutch": "Stond",
+      "voiceDutch": "Stond",
+      "english": "Stand",
+      "phonetic": "STOND",
+      "notes": "Stand and hold. Used in show ring, vet exams, grooming."
+    },
+    {
+      "sectionId": "obedience",
+      "sectionTitle": "Core Obedience",
+      "dutch": "Blijf",
+      "voiceDutch": "Blijf",
+      "english": "Stay",
+      "phonetic": "BLEYF",
+      "notes": "Formal stay — hold until Vrij. Build the 3 D's: Duration, Distance, Distraction."
+    },
+    {
+      "sectionId": "obedience",
+      "sectionTitle": "Core Obedience",
+      "dutch": "Kom",
+      "voiceDutch": "Kom",
+      "english": "Come",
+      "phonetic": "KOM",
+      "notes": "Alternate recall. Use interchangeably with Hier once recall is solid."
+    },
+    {
+      "sectionId": "obedience",
+      "sectionTitle": "Core Obedience",
+      "dutch": "Zit-blijf",
+      "voiceDutch": "Zit-blijf",
+      "english": "Sit-stay",
+      "phonetic": "ZIT BLEYF",
+      "notes": "Combined cue for formal sit-stay positions. Used in trial work."
+    },
+    {
+      "sectionId": "obedience",
+      "sectionTitle": "Core Obedience",
+      "dutch": "Af-blijf",
+      "voiceDutch": "Af-blijf",
+      "english": "Down-stay",
+      "phonetic": "AHF BLEYF",
+      "notes": "Down and hold. Build to 30 min+ for IGP/KNPV trial standards."
+    },
+    {
+      "sectionId": "obedience",
+      "sectionTitle": "Core Obedience",
+      "dutch": "Rustig",
+      "voiceDutch": "Rustig",
+      "english": "Calm / Settle",
+      "phonetic": "ROOS-tikh",
+      "notes": "Reduces arousal. Use when dog is over-threshold. Long-hairs respond well to this."
+    },
+    {
+      "sectionId": "obedience",
+      "sectionTitle": "Core Obedience",
+      "dutch": "Stil",
+      "voiceDutch": "Stil",
+      "english": "Quiet / No barking",
+      "phonetic": "STIL",
+      "notes": "Cease barking on command. Pair with Blaf (bark) for on/off control."
+    },
+    {
+      "sectionId": "movement",
+      "sectionTitle": "Movement, Heeling &amp; Direction",
+      "dutch": "Voet",
+      "voiceDutch": "Voet",
+      "english": "Heel (left side)",
+      "phonetic": "FOOT",
+      "notes": "Walk at handler's left hip. Core for all obedience sport."
+    },
+    {
+      "sectionId": "movement",
+      "sectionTitle": "Movement, Heeling &amp; Direction",
+      "dutch": "Dichtbij",
+      "voiceDutch": "Dichtbij",
+      "english": "Close / Tight",
+      "phonetic": "DIKHT-bey",
+      "notes": "Tighten heel position. Useful early to build spatial body awareness."
+    },
+    {
+      "sectionId": "movement",
+      "sectionTitle": "Movement, Heeling &amp; Direction",
+      "dutch": "Vooruit",
+      "voiceDutch": "Vooruit",
+      "english": "Forward / Go ahead",
+      "phonetic": "FOR-OWT",
+      "notes": "Send dog ahead. Distance work and directional control."
+    },
+    {
+      "sectionId": "movement",
+      "sectionTitle": "Movement, Heeling &amp; Direction",
+      "dutch": "Links",
+      "voiceDutch": "Links",
+      "english": "Left",
+      "phonetic": "LINKS",
+      "notes": "Direction cue for distance work and agility."
+    },
+    {
+      "sectionId": "movement",
+      "sectionTitle": "Movement, Heeling &amp; Direction",
+      "dutch": "Rechts",
+      "voiceDutch": "Rechts",
+      "english": "Right",
+      "phonetic": "REKH-TS",
+      "notes": "Direction cue. \"kh\" is a soft guttural sound."
+    },
+    {
+      "sectionId": "movement",
+      "sectionTitle": "Movement, Heeling &amp; Direction",
+      "dutch": "Stop",
+      "voiceDutch": "Stop",
+      "english": "Halt / Stop",
+      "phonetic": "STOP",
+      "notes": "Immediate stop at distance. Same word in Dutch."
+    },
+    {
+      "sectionId": "movement",
+      "sectionTitle": "Movement, Heeling &amp; Direction",
+      "dutch": "Terug",
+      "voiceDutch": "Terug",
+      "english": "Back / Return",
+      "phonetic": "teh-RUCKH",
+      "notes": "Return to handler or back up from position."
+    },
+    {
+      "sectionId": "movement",
+      "sectionTitle": "Movement, Heeling &amp; Direction",
+      "dutch": "Omdraaien",
+      "voiceDutch": "Omdraaien",
+      "english": "Turn around",
+      "phonetic": "OM-dray-en",
+      "notes": "180° turn. Used in distance heeling and trial patterns."
+    },
+    {
+      "sectionId": "movement",
+      "sectionTitle": "Movement, Heeling &amp; Direction",
+      "dutch": "Naast me",
+      "voiceDutch": "Naast me",
+      "english": "Next to me / Side",
+      "phonetic": "NAHST meh",
+      "notes": "Return to handler's side from any position."
+    },
+    {
+      "sectionId": "retrieve",
+      "sectionTitle": "Retrieve, Tug &amp; Sport Obedience",
+      "dutch": "Apport",
+      "voiceDutch": "Apport",
+      "english": "Fetch / Retrieve",
+      "phonetic": "ah-PORT",
+      "notes": "Send to retrieve and return to hand. Full hold required in trials."
+    },
+    {
+      "sectionId": "retrieve",
+      "sectionTitle": "Retrieve, Tug &amp; Sport Obedience",
+      "dutch": "Geef",
+      "voiceDutch": "Geef",
+      "english": "Give / Drop it",
+      "phonetic": "KHEEF",
+      "notes": "Release object calmly to hand. No spitting — full give."
+    },
+    {
+      "sectionId": "retrieve",
+      "sectionTitle": "Retrieve, Tug &amp; Sport Obedience",
+      "dutch": "Los",
+      "voiceDutch": "Los",
+      "english": "Out / Release grip",
+      "phonetic": "LOS",
+      "notes": "Clean release in bite work. Dog must out on first command."
+    },
+    {
+      "sectionId": "retrieve",
+      "sectionTitle": "Retrieve, Tug &amp; Sport Obedience",
+      "dutch": "Pak aan",
+      "voiceDutch": "Pak aan",
+      "english": "Take it / Grip",
+      "phonetic": "PAHK AHN",
+      "notes": "Tug/bite engagement cue. Builds prey drive for sport."
+    },
+    {
+      "sectionId": "retrieve",
+      "sectionTitle": "Retrieve, Tug &amp; Sport Obedience",
+      "dutch": "Houd vast",
+      "voiceDutch": "Houd vast",
+      "english": "Hold it",
+      "phonetic": "HOWT VAHST",
+      "notes": "Maintain grip on object. Used in retrieve hold and bite work."
+    },
+    {
+      "sectionId": "retrieve",
+      "sectionTitle": "Retrieve, Tug &amp; Sport Obedience",
+      "dutch": "Spring",
+      "voiceDutch": "Spring",
+      "english": "Jump",
+      "phonetic": "SPRING",
+      "notes": "Clear a jump obstacle. KNPV requires 1m+ scaling wall jump."
+    },
+    {
+      "sectionId": "retrieve",
+      "sectionTitle": "Retrieve, Tug &amp; Sport Obedience",
+      "dutch": "Klim",
+      "voiceDutch": "Klim",
+      "english": "Climb / Scale",
+      "phonetic": "KLIM",
+      "notes": "Climb a wall or A-frame. Core KNPV obstacle skill."
+    },
+    {
+      "sectionId": "retrieve",
+      "sectionTitle": "Retrieve, Tug &amp; Sport Obedience",
+      "dutch": "Kruip",
+      "voiceDutch": "Kruip",
+      "english": "Crawl",
+      "phonetic": "KROYP",
+      "notes": "Low belly crawl under obstacles."
+    },
+    {
+      "sectionId": "retrieve",
+      "sectionTitle": "Retrieve, Tug &amp; Sport Obedience",
+      "dutch": "Zwem",
+      "voiceDutch": "Zwem",
+      "english": "Swim",
+      "phonetic": "ZVEM",
+      "notes": "Water entry cue. KNPV includes water retrieves."
+    },
+    {
+      "sectionId": "protection",
+      "sectionTitle": "Protection &amp; Guard Work",
+      "dutch": "Pas op",
+      "voiceDutch": "Pas op",
+      "english": "Watch out / Alert",
+      "phonetic": "PAHS OP",
+      "notes": "Alert warning bark; signals threat presence. Warning before escalation."
+    },
+    {
+      "sectionId": "protection",
+      "sectionTitle": "Protection &amp; Guard Work",
+      "dutch": "Bewaken",
+      "voiceDutch": "Bewaken",
+      "english": "Guard / Watch over",
+      "phonetic": "beh-VAH-ken",
+      "notes": "Guard an object, person, or area. Dog holds position with vigilance."
+    },
+    {
+      "sectionId": "protection",
+      "sectionTitle": "Protection &amp; Guard Work",
+      "dutch": "Blaf",
+      "voiceDutch": "Blaf",
+      "english": "Bark / Speak",
+      "phonetic": "BLAHF",
+      "notes": "Alert bark on command. Pair with Stil for on/off control."
+    },
+    {
+      "sectionId": "protection",
+      "sectionTitle": "Protection &amp; Guard Work",
+      "dutch": "Aan",
+      "voiceDutch": "Aan",
+      "english": "Engage / On (bite)",
+      "phonetic": "AHN",
+      "notes": "Activation cue for bite sport — only used with trained decoy and handler."
+    },
+    {
+      "sectionId": "protection",
+      "sectionTitle": "Protection &amp; Guard Work",
+      "dutch": "Los",
+      "voiceDutch": "Los",
+      "english": "Out / Release",
+      "phonetic": "LOS",
+      "notes": "Clean out is the most important protection command. Must be instant."
+    },
+    {
+      "sectionId": "protection",
+      "sectionTitle": "Protection &amp; Guard Work",
+      "dutch": "Bij me blijven",
+      "voiceDutch": "Bij me blijven",
+      "english": "Stay with me / Escort",
+      "phonetic": "BEY meh BLEYF-en",
+      "notes": "Handler escort position. Dog stays close while moving through threats."
+    },
+    {
+      "sectionId": "protection",
+      "sectionTitle": "Protection &amp; Guard Work",
+      "dutch": "Zoek hem/haar",
+      "voiceDutch": "Zoek hem/haar",
+      "english": "Find him/her",
+      "phonetic": "ZOOK HEM/HAHR",
+      "notes": "Search for a hidden decoy or person. KNPV hidden blind search."
+    },
+    {
+      "sectionId": "protection",
+      "sectionTitle": "Protection &amp; Guard Work",
+      "dutch": "Staan",
+      "voiceDutch": "Staan",
+      "english": "Stand guard / Hold",
+      "phonetic": "STAHN",
+      "notes": "Hold position over a downed decoy. Bitework trial skill."
+    },
+    {
+      "sectionId": "scent",
+      "sectionTitle": "Scent Work &amp; Tracking",
+      "dutch": "Zoek",
+      "voiceDutch": "Zoek",
+      "english": "Search / Find it",
+      "phonetic": "ZOOK",
+      "notes": "General search cue. Works for articles, people, objects, narcotics, SAR."
+    },
+    {
+      "sectionId": "scent",
+      "sectionTitle": "Scent Work &amp; Tracking",
+      "dutch": "Spoor",
+      "voiceDutch": "Spoor",
+      "english": "Track / Trail",
+      "phonetic": "SPOOR",
+      "notes": "Nose-to-ground tracking. Specific to following a scent path (IGP tracking)."
+    },
+    {
+      "sectionId": "scent",
+      "sectionTitle": "Scent Work &amp; Tracking",
+      "dutch": "Markeer",
+      "voiceDutch": "Markeer",
+      "english": "Mark it / Indicate",
+      "phonetic": "mar-KEER",
+      "notes": "Alert/indicate an article or odour. Dog sits, downs, or freezes on find."
+    },
+    {
+      "sectionId": "scent",
+      "sectionTitle": "Scent Work &amp; Tracking",
+      "dutch": "Zoek artikel",
+      "voiceDutch": "Zoek artikel",
+      "english": "Find the article",
+      "phonetic": "ZOOK ar-TEE-kel",
+      "notes": "Specific article search (IGP Phase 1). Find handler-scented objects in field."
+    },
+    {
+      "sectionId": "scent",
+      "sectionTitle": "Scent Work &amp; Tracking",
+      "dutch": "Zoek persoon",
+      "voiceDutch": "Zoek persoon",
+      "english": "Find the person",
+      "phonetic": "ZOOK per-SOHN",
+      "notes": "SAR / man-trailing search cue."
+    },
+    {
+      "sectionId": "scent",
+      "sectionTitle": "Scent Work &amp; Tracking",
+      "dutch": "Wijs",
+      "voiceDutch": "Wijs",
+      "english": "Show me / Point",
+      "phonetic": "VEYS",
+      "notes": "Direct handler to the find. Dog returns and re-indicates location."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Mand",
+      "voiceDutch": "Mand",
+      "english": "Bed / Place / Crate",
+      "phonetic": "MAHND",
+      "notes": "Go to your designated spot and stay. Teaches self-settling."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Buiten",
+      "voiceDutch": "Buiten",
+      "english": "Outside / Go potty",
+      "phonetic": "BOW-ten",
+      "notes": "Potty on command. Teach a specific toilet cue like \"Doe het\" (DO it) as well."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Doe het",
+      "voiceDutch": "Doe het",
+      "english": "Do it / Go potty",
+      "phonetic": "DOO het",
+      "notes": "On-cue elimination. Invaluable for cold winters and tight schedules."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Wacht",
+      "voiceDutch": "Wacht",
+      "english": "Wait",
+      "phonetic": "VAKHKT",
+      "notes": "Pause at thresholds — door, car, bowl. Different from formal Blijf."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Laat",
+      "voiceDutch": "Laat",
+      "english": "Leave it",
+      "phonetic": "LAHT",
+      "notes": "Disengage from any item or distraction. Safety command."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Omlaag",
+      "voiceDutch": "Omlaag",
+      "english": "Get off (furniture)",
+      "phonetic": "om-LAHKH",
+      "notes": "Off the couch, bed, person. Different from Af (lie down)."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Poot",
+      "voiceDutch": "Poot",
+      "english": "Paw / Shake",
+      "phonetic": "POHT",
+      "notes": "Give a paw. Useful for cooperative care — nail checks, vet visits."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Mond open",
+      "voiceDutch": "Mond open",
+      "english": "Open mouth",
+      "phonetic": "MOND OH-pen",
+      "notes": "Cooperative care — dental checks, medication. Teach from puppyhood."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Stil liggen",
+      "voiceDutch": "Stil liggen",
+      "english": "Hold still / Freeze",
+      "phonetic": "STIL LIK-hen",
+      "notes": "Don't move — for vet exams, grooming, injury assessment."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Ga slapen",
+      "voiceDutch": "Ga slapen",
+      "english": "Go to sleep / Rest",
+      "phonetic": "KHAH SLAH-pen",
+      "notes": "Settle for the night cue. Helps build a calm sleep routine."
+    },
+    {
+      "sectionId": "manners",
+      "sectionTitle": "Everyday Manners &amp; Household",
+      "dutch": "Auto",
+      "voiceDutch": "Auto",
+      "english": "Car / Load up",
+      "phonetic": "OW-toh",
+      "notes": "Load into vehicle on command. Always use with Wacht before exit."
+    },
+    {
+      "sectionId": "tricks",
+      "sectionTitle": "Tricks &amp; Enrichment",
+      "dutch": "Rol om",
+      "voiceDutch": "Rol om",
+      "english": "Roll over",
+      "phonetic": "ROL OM",
+      "notes": "Classic trick. Builds body awareness and flexibility."
+    },
+    {
+      "sectionId": "tricks",
+      "sectionTitle": "Tricks &amp; Enrichment",
+      "dutch": "Buik omhoog",
+      "voiceDutch": "Buik omhoog",
+      "english": "Belly up / Play dead",
+      "phonetic": "BOYK om-HOHKH",
+      "notes": "\"Play dead\" — great for cooperative vet handling too."
+    },
+    {
+      "sectionId": "tricks",
+      "sectionTitle": "Tricks &amp; Enrichment",
+      "dutch": "Ga liggen",
+      "voiceDutch": "Ga liggen",
+      "english": "Go lie down (relaxed)",
+      "phonetic": "KHAH LIK-hen",
+      "notes": "Relaxed settle, not a formal down. Teaches switching off drive."
+    },
+    {
+      "sectionId": "tricks",
+      "sectionTitle": "Tricks &amp; Enrichment",
+      "dutch": "Tik",
+      "voiceDutch": "Tik",
+      "english": "Touch / Target",
+      "phonetic": "TIK",
+      "notes": "Nose or paw targets your hand. Foundation for many sport and trick behaviours."
+    },
+    {
+      "sectionId": "tricks",
+      "sectionTitle": "Tricks &amp; Enrichment",
+      "dutch": "Spin",
+      "voiceDutch": "Spin",
+      "english": "Spin (clockwise)",
+      "phonetic": "SPIN",
+      "notes": "Full circle spin. Builds body awareness."
+    },
+    {
+      "sectionId": "tricks",
+      "sectionTitle": "Tricks &amp; Enrichment",
+      "dutch": "Draai",
+      "voiceDutch": "Draai",
+      "english": "Spin (counter-clockwise)",
+      "phonetic": "DREY",
+      "notes": "Opposite direction spin. Differentiating directions is a great brain exercise."
+    },
+    {
+      "sectionId": "tricks",
+      "sectionTitle": "Tricks &amp; Enrichment",
+      "dutch": "Ga weg",
+      "voiceDutch": "Ga weg",
+      "english": "Go away / Place send",
+      "phonetic": "KHAH VEK",
+      "notes": "Send away to a target point. Builds drive and distance work."
+    },
+    {
+      "sectionId": "tricks",
+      "sectionTitle": "Tricks &amp; Enrichment",
+      "dutch": "Buig",
+      "voiceDutch": "Buig",
+      "english": "Bow",
+      "phonetic": "BOYKH",
+      "notes": "Play bow / stretch bow. Crowd pleaser and useful warm-up stretch."
+    }
+  ],
+  "markers": [
+    {
+      "type": "Primary Yes Marker",
+      "dutch": "Ja",
+      "voiceDutch": "Ja",
+      "english": "Primary Yes Marker",
+      "phonetic": "YAH",
+      "notes": "Precise \"yes!\" marker — reward is coming now. Use the instant the correct behaviour happens."
+    },
+    {
+      "type": "General Praise",
+      "dutch": "Goed zo",
+      "voiceDutch": "Goed zo",
+      "english": "General Praise",
+      "phonetic": "KHOOT ZO",
+      "notes": "\"Good job / well done\" — warm, ongoing praise. Not a precise marker, but builds confidence."
+    },
+    {
+      "type": "Enthusiastic Praise",
+      "dutch": "Braaf",
+      "voiceDutch": "Braaf",
+      "english": "Enthusiastic Praise",
+      "phonetic": "BRAHF",
+      "notes": "\"Good dog / well behaved\" — use for sustained good behaviour. Higher energy praise."
+    },
+    {
+      "type": "Release Word",
+      "dutch": "Vrij",
+      "voiceDutch": "Vrij",
+      "english": "Release Word",
+      "phonetic": "VREY",
+      "notes": "\"Free / released\" — every stay, wait, and position ends here. Never skip the release."
+    },
+    {
+      "type": "No / Correction",
+      "dutch": "Nee",
+      "voiceDutch": "Nee",
+      "english": "No / Correction",
+      "phonetic": "NAY",
+      "notes": "\"No\" — calm and firm, never shouted. Marks the wrong behaviour without emotion."
+    },
+    {
+      "type": "Strong Shame Marker",
+      "dutch": "Foei",
+      "voiceDutch": "Foei",
+      "english": "Strong Shame Marker",
+      "phonetic": "FOO-ee",
+      "notes": "\"Shame / bad\" — used sparingly for serious corrections only. Not for puppies learning."
+    }
+  ]
+}
