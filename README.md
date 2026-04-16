@@ -30,6 +30,20 @@ Open `index.html` directly in a browser.
 - `Voice test` lets you confirm your browser voice output.
 - Shortcut: `Alt + A` repeats the last phrase.
 
+## Recommended voice setup (Windows)
+
+For the best Dutch voice quality and male voice options:
+
+1. Use **Microsoft Edge** (best Windows speech integration).
+2. Install Dutch language and speech packs:
+   - `Settings` -> `Time & language` -> `Language & region`
+   - Add `Dutch (Netherlands)` and install the **Speech** feature.
+3. Restart your browser after installing voices.
+4. In the site Audio Coach:
+   - Keep `Prefer male voice` enabled, or
+   - Select a specific Dutch voice from `Dutch voice`.
+5. Click `Voice test` to verify before training sessions.
+
 ## Publish on GitHub Pages (recommended for Notion)
 
 1. Create a new GitHub repo.
