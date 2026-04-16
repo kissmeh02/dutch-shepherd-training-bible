@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">Dutch Shepherd Training Bible</title>
+<desc id="desc">A complete Dutch Shepherd training reference with commands, pronunciation, roadmap, and handler guidance.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#0E0C09"/>
+    <stop offset="100%" stop-color="#1E1A16"/>
+  </linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<rect x="68" y="68" width="1064" height="494" rx="18" fill="none" stroke="#D4952B" stroke-opacity="0.4"/>
+<text x="96" y="150" fill="#D4952B" font-family="'JetBrains Mono', monospace" font-size="24" letter-spacing="3">HOLLANDSE HERDERSHOND</text>
+<text x="96" y="300" fill="#F0E8D8" font-family="'Bebas Neue', Impact, sans-serif" font-size="120" letter-spacing="2">DUTCH SHEPHERD</text>
+<text x="96" y="400" fill="#D4952B" font-family="'Bebas Neue', Impact, sans-serif" font-size="110" letter-spacing="2">TRAINING BIBLE</text>
+<text x="96" y="468" fill="#F0E8D8" fill-opacity="0.78" font-family="'Crimson Pro', Georgia, serif" font-size="38">Commands. Pronunciation. Roadmap. Handler Rules.</text>
+<circle cx="1038" cy="154" r="78" fill="none" stroke="#D4952B" stroke-opacity="0.45"/>
+<text x="990" y="170" fill="#D4952B" font-family="'Bebas Neue', Impact, sans-serif" font-size="72">70+</text>
+<text x="932" y="535" fill="#F0E8D8" fill-opacity="0.55" font-family="'JetBrains Mono', monospace" font-size="18" letter-spacing="2">COMPLETE TRAINING REFERENCE</text>
+</svg>

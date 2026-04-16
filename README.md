@@ -1,0 +1,48 @@
+# Dutch Shepherd Training Bible
+
+A complete, interactive Dutch Shepherd training reference page with:
+- 70+ commands and cues
+- pronunciation and notes
+- puppy roadmap
+- body language guide
+- handler rules and breed-specific notes
+- search, filters, mobile menu, and scroll-spy navigation
+- production-ready split assets: `styles.css` and `app.js`
+
+## Local preview
+
+Open `index.html` directly in a browser.
+
+## Publish on GitHub Pages (recommended for Notion)
+
+1. Create a new GitHub repo.
+2. Upload all files in this folder.
+3. In GitHub: `Settings` -> `Pages`.
+4. Under **Build and deployment**, set:
+   - **Source:** `Deploy from a branch`
+   - **Branch:** `main` (or `master`), folder `/ (root)`
+5. Save and wait 1-3 minutes.
+6. Your live URL will be:
+   - `https://<your-username>.github.io/<repo-name>/`
+
+## Embed in Notion with full functionality
+
+Important: full JavaScript functionality works only when you embed the **live hosted URL** (not raw HTML text).
+
+1. In Notion, type `/embed`.
+2. Paste your GitHub Pages URL.
+3. Resize the embed block for best viewing.
+
+## Notes
+
+- `.nojekyll` is included so GitHub Pages serves files exactly as-is.
+- If you later add custom domains, update GitHub Pages settings accordingly.
+- Some Notion mobile views may show reduced viewport space, but features still work inside the embed.
+
+## Post-Deploy Validation Checklist
+
+- Open your GitHub Pages URL in desktop and mobile.
+- Confirm command search works (`Ctrl+K`) and filters table rows.
+- Confirm section highlighting updates while scrolling.
+- Confirm hamburger nav works on small screens.
+- Confirm the page embeds in Notion using `/embed` and the hosted URL.
