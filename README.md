@@ -64,18 +64,30 @@ Live deployment for this project:
 
 Important: full JavaScript functionality works only when you embed the **live hosted URL** (not raw HTML text).
 
+Recommended URL (best cross-device workflow):
+- `https://kissmeh02.github.io/dutch-shepherd-training-bible/notion-embed.html`
+
 1. In Notion, type `/embed`.
-2. Paste your GitHub Pages URL.
+2. Paste the Notion Hub URL above.
 3. Resize the embed block for best viewing.
+4. Use the two buttons inside the embed to switch between:
+   - `Commands`
+   - `Daily Training`
+
+Direct embed URLs (optional):
+- Commands: `https://kissmeh02.github.io/dutch-shepherd-training-bible/index.html?embed=1#commands`
+- Daily Training: `https://kissmeh02.github.io/dutch-shepherd-training-bible/daily-training.html?embed=1`
 
 ## Notes
 
 - `.nojekyll` is included so GitHub Pages serves files exactly as-is.
 - `404.html` mirrors the main page for GitHub Pages fallback behavior.
+- `notion-embed.html` is a dedicated hub page for Notion embeds.
 - `social-preview.svg` is used for Open Graph and Twitter share previews.
 - `commands-data.json` stores command/marker voice text and powers random audio picks.
 - If you later add custom domains, update GitHub Pages settings accordingly.
 - Some Notion mobile views may show reduced viewport space, but features still work inside the embed.
+- Completion checkboxes and preferences use browser local storage, so they are device/browser specific.
 
 ## Post-Deploy Validation Checklist
 

@@ -1,6 +1,13 @@
 (function() {
   'use strict';
 
+  // Add compact layout automatically when embedded in an iframe (ex: Notion).
+  const isEmbeddedFrame = window.self !== window.top;
+  const forceEmbedMode = new URLSearchParams(window.location.search).get('embed') === '1';
+  if (isEmbeddedFrame || forceEmbedMode) {
+    document.body.classList.add('embed-mode');
+  }
+
   // ── SCROLL PROGRESS BAR ──
   const progressBar = document.getElementById('progressBar');
   function updateProgress() {
@@ -12,12 +19,18 @@
 
   // ── SCROLL SPY ──
   const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  const commandJumpLinks = document.querySelectorAll('.command-jump-links a[href^="#"]');
+  const spyLinks = [...navLinks, ...commandJumpLinks];
   const navElement = document.querySelector('.nav');
   const sections = [];
-  navLinks.forEach(link => {
+  const sectionIds = new Set();
+  spyLinks.forEach(link => {
     const id = link.getAttribute('href').slice(1);
     const el = document.getElementById(id);
-    if (el) sections.push({ id, el, link });
+    if (el && !sectionIds.has(id)) {
+      sectionIds.add(id);
+      sections.push({ id, el });
+    }
   });
 
   function updateScrollSpy() {
@@ -27,13 +40,17 @@
     for (const s of sections) {
       if (s.el.offsetTop <= scrollY) current = s;
     }
-    navLinks.forEach(l => {
+    spyLinks.forEach(l => {
       l.classList.remove('active');
       l.removeAttribute('aria-current');
     });
     if (current) {
-      current.link.classList.add('active');
-      current.link.setAttribute('aria-current', 'page');
+      spyLinks.forEach((link) => {
+        if (link.getAttribute('href') === `#${current.id}`) {
+          link.classList.add('active');
+          link.setAttribute('aria-current', 'page');
+        }
+      });
     }
   }
 
@@ -87,6 +104,16 @@
       hamburger.setAttribute('aria-expanded', 'false');
     }
   });
+  const commandJumpSelect = document.getElementById('commandJumpSelect');
+  if (commandJumpSelect) {
+    commandJumpSelect.addEventListener('change', () => {
+      const targetId = commandJumpSelect.value;
+      if (!targetId) return;
+      const target = document.querySelector(targetId);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      commandJumpSelect.value = '';
+    });
+  }
 
   // ── SEARCH ──
   const searchToggle = document.getElementById('searchToggle');
