@@ -1,16 +1,27 @@
 # Dutch Shepherd Training Bible
 
-A complete, interactive Dutch Shepherd training reference page with:
-- 70+ commands and cues
-- pronunciation and notes
-- puppy roadmap
-- body language guide
-- handler rules and breed-specific notes
-- search, filters, mobile menu, and scroll-spy navigation
-- audio coach with Dutch / English / Both playback modes
+Complete Dutch Shepherd training system for handlers who want one practical reference for:
+- Dutch command vocabulary with pronunciation
+- daily dog-focused training execution
+- scent work and protection workflow support
+- Notion-ready cross-device access via GitHub Pages
+
+Live links:
+- Site (Commands): `https://kissmeh02.github.io/dutch-shepherd-training-bible/`
+- Daily Planner: `https://kissmeh02.github.io/dutch-shepherd-training-bible/daily-training.html`
+- Notion Hub (recommended embed): `https://kissmeh02.github.io/dutch-shepherd-training-bible/notion-embed.html`
+
+## What this project includes
+
+- 70+ command and marker references with notes
+- command quick-jump navigation and section highlighting
+- command search/filter and mobile menu navigation
+- audio coach with `Dutch`, `English`, and `Both` playback modes
 - trainer mode, random command practice, and repeat-last playback
-- command dataset file: `commands-data.json` (Dutch voice text + command metadata)
-- production-ready split assets: `styles.css` and `app.js`
+- dedicated dog-focused daily training planner (`daily-training.html`)
+- Notion embed hub (`notion-embed.html`) optimized for iframe use
+- structured command dataset file: `commands-data.json`
+- production-ready split assets: `styles.css`, `app.js`, `daily-training.js`
 
 ## Local preview
 
